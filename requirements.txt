@@ -5,3 +5,4 @@ streamlit==1.16.0
 fbprophet==0.7.1
 statsmodels==0.13.5
 pmdarima
+openpyxl
