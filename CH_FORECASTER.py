@@ -1,7 +1,7 @@
 # First, you'll need to install the required libraries
 #!pip install fbprophet pmdarima
 
-# Import the necessary libraries
+import sys
 import pandas as pd
 from fbprophet import Prophet
 from pmdarima import auto_arima
@@ -12,7 +12,29 @@ from sklearn.ensemble import RandomForestRegressor
 import streamlit as st
 import time
 import base64
-import io
+
+print("Python version")
+print(sys.version)
+print("Pandas version")
+print(pd.__version__)
+print("Scikit-learn version")
+print(sklearn.__version__)
+print("Statsmodels version")
+print(sm.__version__)
+print("NumPy version")
+print(np.__version__)
+print("Streamlit version")
+print(st.__version__)
+
+# For libraries that don't offer a .__version__ attribute, you may need to use an alternative approach to get the version. For instance, you can use the pkg_resources module to get the version of fbprophet:
+import pkg_resources
+print("fbprophet version")
+print(pkg_resources.get_distribution("fbprophet").version)
+
+# pmdarima doesn't have a .__version__ attribute, but we can get its version from the installed packages.
+print("pmdarima version")
+print(pkg_resources.get_distribution("pmdarima").version)
+
 
 # define the start_timestart
 
