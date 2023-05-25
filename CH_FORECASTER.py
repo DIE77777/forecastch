@@ -11,29 +11,11 @@ import numpy as np
 from sklearn.ensemble import RandomForestRegressor
 import streamlit as st
 import time
+import io
 import base64
 
-print("Python version")
-print(sys.version)
-print("Pandas version")
-print(pd.__version__)
-print("Scikit-learn version")
-print(sklearn.__version__)
-print("Statsmodels version")
-print(sm.__version__)
-print("NumPy version")
-print(np.__version__)
-print("Streamlit version")
-print(st.__version__)
 
-# For libraries that don't offer a .__version__ attribute, you may need to use an alternative approach to get the version. For instance, you can use the pkg_resources module to get the version of fbprophet:
-import pkg_resources
-print("fbprophet version")
-print(pkg_resources.get_distribution("fbprophet").version)
 
-# pmdarima doesn't have a .__version__ attribute, but we can get its version from the installed packages.
-print("pmdarima version")
-print(pkg_resources.get_distribution("pmdarima").version)
 
 
 # define the start_timestart
@@ -63,26 +45,19 @@ def get_table_download_link(df):
 # create a function to get_table_download_link in xlsx format
 
 def get_table_download_link_xlsx(df):
-  
-      """Generates a link allowing the data in a given panda dataframe to be downloaded
-  
-      in:  dataframe
-  
-      out: href string
-  
-      """
-  
-      towrite = io.BytesIO()
-  
-      downloaded_file = df.to_excel(towrite, encoding='utf-8', index=False, header=True)
-  
-      towrite.seek(0)  # reset pointer
-  
-      b64 = base64.b64encode(towrite.read()).decode()
-  
-      href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="extract.xlsx">Download xlsx file</a>'
-  
-      return href
+    """Generates a link allowing the data in a given panda dataframe to be downloaded
+    in:  dataframe
+    out: href string
+    """
+    towrite = io.BytesIO()
+    writer = pd.ExcelWriter(towrite, engine='xlsxwriter')
+    df.to_excel(writer, index=False, header=True)
+    writer.save()
+    towrite.seek(0)  # reset pointer
+    b64 = base64.b64encode(towrite.read()).decode() 
+    href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="extract.xlsx">Download xlsx file</a>'
+    return href 
+
 
 # create app title
 
