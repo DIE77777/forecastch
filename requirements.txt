@@ -1,8 +1,9 @@
 numpy==1.21.6
 pandas==1.4.4
 pystan==2.19.1.1
-streamlit==1.16.0
-fbprophet==0.7.1
+streamlit==1.22.0
+prophet==1.1.3
 statsmodels==0.13.5
-pmdarima
-openpyxl
+pmdarima==version_number
+openpyxl==version_number
+altair==5.0.0
